@@ -1,0 +1,53 @@
+/*
+#EDF9FE, #8BF2CF, #8AF1CE, #FFA2C3, #FEA1C2, #535E5B, #000000, #000000
+
+*/
+
+:root {
+    --blue: #8BF2CF;
+    --white: #faf0e6;
+  }
+
+
+
+.game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+
+}
+
+.game-status{
+    font-size: 2em;
+}
+
+.main-board{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.main-board > div{
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.main-board div div{
+    border: solid black 2px;
+    height: 30vh;
+    width: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.main-board div div:hover{
+background-color: beige;
+}
