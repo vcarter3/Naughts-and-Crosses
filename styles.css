@@ -8,10 +8,26 @@
     --white: #faf0e6;
   }
 
+.UI{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.UI .player-selection{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.player-one-marker, .player-two-marker{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 
 .game{
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -45,9 +61,10 @@
     align-items: center;
     font-size: 9em;
     user-select: none;
-    cursor: pointer;
+    
 }
 
-.main-board div div:hover{
+.main-board div div:empty:hover{
 background-color: beige;
+cursor: pointer;
 }
