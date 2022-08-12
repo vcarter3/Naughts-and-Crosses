@@ -120,6 +120,9 @@ const displayController = (() => {
         let index = [e.target.parentElement.dataset.row, e.target.dataset.col];
         console.log(index);
         gameController.playRound(index);
+        // add bot?
+        //gameController.playRound(randomIndex());
+
       } else {
         // want to color error cell
         cell.style.backgroundColor = "#e88b7b";
@@ -130,6 +133,20 @@ const displayController = (() => {
       }
     });
   });
+
+  const randomIndex = () => {
+    let emptyIndexes = [];
+    // create a random index from the empty remaining indexes
+    for(let row = 0; row<3; row++){
+      for(let col = 0; col<3; col++){
+        if (gameBoard.current()[row][col] == ""){
+          emptyIndexes.push([(row+1).toString(),(col+1).toString()]);
+        }
+        }
+      }
+      //console.log(emptyIndexes);
+      return emptyIndexes[Math.floor(Math.random() * emptyIndexes.length)]
+  }
 
 
 
