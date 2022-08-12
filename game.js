@@ -48,12 +48,13 @@ const UI = (() => {
   const buttons2 = document.querySelectorAll(".UI .player-two-marker button");
   const start = document.querySelector(".UI .start");
   const game = document.querySelector(".game");
-  let player1marker = "x";
-  let player2marker = "o";
+  let player1marker = "";
+  let player2marker = "";
 
   // player one
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
+      select(button);
       player1marker = button.textContent;
     });
   });
@@ -61,32 +62,46 @@ const UI = (() => {
   //player two
   buttons2.forEach((button) => {
     button.addEventListener("click", () => {
+      select(button);
       player2marker = button.textContent;
     });
   });
 
   //start button
   start.addEventListener("click", () => {
-    if (player1marker != "x" && player2marker.length > 0 && player1marker != player2marker) {
+    if (player1marker != "" && player2marker != "" && player1marker != player2marker) {
       ui.style.display = "none";
       game.style.display = "flex";
-
-
+      startStatus();
     } else {
       return
     }
   });
 
+  const select = (button) => {
+    button.classList.add('selected');
+    for (let sibling of button.parentNode.children) {
+        if (sibling !== button) sibling.classList.remove('selected');
+    }
+  }
+
+  const showUI = () => {
+    ui.style.display = "flex";
+    game.style.display = "none";
+  };
+
+  const startStatus = () => {
+    return displayController.renderStatus("Player " + player1marker+ "'s turn");
+  }
 
   const playerTurn = () => {
-    console.log(player1marker);
       // playerOne to go first
       //[playerTwo, playerOne];
     return [player("Player " + player2marker, player2marker),player("Player " + player1marker, player1marker)]
   }
 
   return {
-    playerTurn
+    playerTurn, startStatus, showUI
   };
 })();
 
@@ -94,6 +109,7 @@ const displayController = (() => {
   // add event listener to each cell
   const status = document.querySelector(".game-status");
   const cells = document.querySelectorAll(".main-board > div div");
+  const restart = document.querySelector(".change");
   const reset = document.querySelector(".reset");
   cells.forEach((cell) => {
     cell.addEventListener("click", (e) => {
@@ -104,6 +120,10 @@ const displayController = (() => {
         let index = [e.target.parentElement.dataset.row, e.target.dataset.col];
         console.log(index);
         gameController.playRound(index);
+
+        
+
+
       } else {
         // want to color error cell
         cell.style.backgroundColor = "red";
@@ -111,12 +131,23 @@ const displayController = (() => {
     });
   });
 
-  reset.addEventListener("click", (e) => {
-    gameController.reset();
-    gameBoard.clear();
-    renderBoard();
+  restart.addEventListener("click", (e) => {
+    //restart game
+    //bring UI back
+    resetBoard();
+    UI.showUI();
   });
 
+  reset.addEventListener("click", (e) => {
+    resetBoard();
+  });
+
+  const resetBoard = () => {
+    gameController.reset();
+    gameBoard.clear();
+    UI.startStatus();
+    renderBoard();
+  }
 
   const renderBoard = () => {
     // updates the board
@@ -135,6 +166,7 @@ const displayController = (() => {
   const renderStatus = (words) => {
     status.textContent = words;
   };
+
   return {
     renderBoard,
     renderStatus,
@@ -192,18 +224,20 @@ const gameController = (() => {
     // check if theres a winner
     if (checkWinner(currentPlayer.getMarker())) {
       endGame = true;
+      
       confetti({
         particleCount: 200,
         spread: 100,
         origin: { y: 0.6 }
       });
+
       displayController.renderStatus(
-        currentPlayer.getName() + " is the winner"
+        currentPlayer.getName() + " has won"
       );
       return;
     } else if (round == 10) {
       endGame = true;
-      displayController.renderStatus("Draw");
+      displayController.renderStatus("It's a tie!");
       return;
     }
   };

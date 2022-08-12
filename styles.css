@@ -2,11 +2,20 @@
 #EDF9FE, #8BF2CF, #8AF1CE, #FFA2C3, #FEA1C2, #535E5B, #000000, #000000
 
 */
-
 :root {
     --blue: #8BF2CF;
     --white: #faf0e6;
+    --grey: #404040;
   }
+
+body{
+    background: linear-gradient(var(--white), #cdd0f4);;
+    color:var(--grey);
+    font-family: 'Work Sans', sans-serif;
+    text-align: center;
+    margin: 0px;
+    height: 100vh;
+}
 
 .UI{
     display: flex;
@@ -15,24 +24,67 @@
     align-items: center;
 }
 
-.UI .player-selection{
+.UI .player-selection {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:flex-start;
 }
 
+.UI .separator {
+    justify-content: space-around;
+    display: flex;
+    font-size: larger;
+}
+
+.UI .player-selection > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.UI .player-selection .selected{
+    outline: 5px solid #f49e64; 
+}
+.UI .player-one-marker .selected{
+    outline: 5px solid #8de0e6; 
+}
+.UI .player-selection > div >div {
+    width: fit-content;
+}
+.UI button, .game button{
+    user-select: none;
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    padding: 0.4em;
+    outline: 5px solid rgb(228, 228, 228);
+    margin: 0.5em;;
+    border-radius: 0.3em; 
+    border:none;
+    cursor: pointer;
+}
+
+.UI .start{
+    display: flex;
+    justify-content: center;
+}
 
 .player-one-marker, .player-two-marker{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .game{
-    display: none;
+    display: none;;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: sans-serif;
+}
 
+.game > div:nth-child(3){
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .game-status{
@@ -40,27 +92,32 @@
 }
 
 .main-board{
-    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
 
 .main-board > div{
-    
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
+
 }
 
 .main-board div div{
-    border: solid black 2px;
-    height: 30vh;
-    width: 30vh;
+    border-radius: 0.8rem;
+    height: clamp(3rem, 10vw, 4rem);
+    width: clamp(3rem, 10vw, 4rem);
+    font-size: clamp(2rem, 7vw, 3rem);
+    background-color: var(--white);
+    padding: 0.4em;
+    margin: 0.2em;
+    outline: 5px solid rgb(228, 228, 228);
+    border-radius: 0.3em; 
+    border:none;
+    user-select: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 9em;
-    user-select: none;
     
 }
 
