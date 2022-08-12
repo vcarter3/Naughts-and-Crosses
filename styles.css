@@ -6,6 +6,7 @@
     --blue: #8BF2CF;
     --white: #faf0e6;
     --grey: #404040;
+    --red: #e88b7b;
 }
 
 body {
@@ -128,7 +129,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    transition: background .5s;
 }
 
 .main-board div div:empty:hover {

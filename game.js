@@ -81,7 +81,7 @@ const UI = (() => {
   const select = (button) => {
     button.classList.add('selected');
     for (let sibling of button.parentNode.children) {
-        if (sibling !== button) sibling.classList.remove('selected');
+      if (sibling !== button) sibling.classList.remove('selected');
     }
   }
 
@@ -91,13 +91,13 @@ const UI = (() => {
   };
 
   const startStatus = () => {
-    return displayController.renderStatus("Player " + player1marker+ "'s turn");
+    return displayController.renderStatus("Player " + player1marker + "'s turn");
   }
 
   const playerTurn = () => {
-      // playerOne to go first
-      //[playerTwo, playerOne];
-    return [player("Player " + player2marker, player2marker),player("Player " + player1marker, player1marker)]
+    // playerOne to go first
+    //[playerTwo, playerOne];
+    return [player("Player " + player2marker, player2marker), player("Player " + player1marker, player1marker)]
   }
 
   return {
@@ -120,16 +120,18 @@ const displayController = (() => {
         let index = [e.target.parentElement.dataset.row, e.target.dataset.col];
         console.log(index);
         gameController.playRound(index);
-
-        
-
-
       } else {
         // want to color error cell
-        cell.style.backgroundColor = "red";
+        cell.style.backgroundColor = "#e88b7b";
+        const changeBackgroundBack = () => {
+          cell.style.backgroundColor = "#faf0e6";
+        }
+        setTimeout(changeBackgroundBack, 900);
       }
     });
   });
+
+
 
   restart.addEventListener("click", (e) => {
     //restart game
@@ -224,7 +226,7 @@ const gameController = (() => {
     // check if theres a winner
     if (checkWinner(currentPlayer.getMarker())) {
       endGame = true;
-      
+
       confetti({
         particleCount: 200,
         spread: 100,
